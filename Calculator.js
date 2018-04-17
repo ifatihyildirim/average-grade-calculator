@@ -5,7 +5,6 @@ class Calculator {
     }
     
     creditsSums() {
-
         var sum = 0;
 
         Object.keys(this.lessons).forEach((key) => {
@@ -15,11 +14,11 @@ class Calculator {
         return sum;
     }
     
-    ECTSCreditsCalculator(lesson, avarage) {
-        return this.lessons[lesson].ECTS * avarage;
+    ECTSCreditsCalculator(lesson, average) {
+        return this.lessons[lesson].ECTS * average;
     }
     
-    lessonAvarageCalculator(object) {
+    lessonAverageCalculator(object) {
         var examResult = 0;
         
         Object.keys(object).forEach((key) => {
@@ -30,14 +29,14 @@ class Calculator {
         return examResult;
     }
     
-    yearCalculator(object) {
-        var avarage = 0;
+    gradeAverageCalculator(object) {
+        var average = 0;
         
         Object.keys(object).forEach((key) => {
-            var lesson =  this.lessonAvarageCalculator(object[key]);
-            avarage += this.ECTSCreditsCalculator(key, lesson);            
+            var lesson =  this.lessonAverageCalculator(object[key]);
+            average += this.ECTSCreditsCalculator(key, lesson);            
         });
         
-        return avarage / this.creditsSums();
+        return average / this.creditsSums();
     }
 }
