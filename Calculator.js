@@ -9,14 +9,14 @@ class Calculator {
         var sum = 0;
 
         Object.keys(this.lessons).forEach((key) => {
-            sum = sum + this.lessons[key];
+            sum += this.lessons[key].ECTS;
         });
 
         return sum;
     }
     
     ECTSCreditsCalculator(lesson, avarage) {
-        return this.lessons[lesson] * avarage;
+        return this.lessons[lesson].ECTS * avarage;
     }
     
     lessonAvarageCalculator(object) {
@@ -35,7 +35,7 @@ class Calculator {
         
         Object.keys(object).forEach((key) => {
             var lesson =  this.lessonAvarageCalculator(object[key]);
-            avarage = avarage + this.ECTSCreditsCalculator(key, lesson);            
+            avarage += this.ECTSCreditsCalculator(key, lesson);            
         });
         
         return avarage / this.creditsSums();

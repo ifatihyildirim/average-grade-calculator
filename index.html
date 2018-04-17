@@ -11,6 +11,10 @@
         .row {
             margin: 10px 0;
         }
+        
+        .box {
+            margin: 20px 0;
+        }
     </style>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -44,37 +48,37 @@
         };
         
         var lessons = {
-            DB: 6.0,
-            DAF: 4.0,
-            KB: 4.0,
-            O: 5.0,
-            SA: 6.0,
-            UDB: 3.0,
-            YA: 5.0,
+            DB: { name: 'Dil Bilgisi', ECTS: 6.0 },
+            DAF: { name: 'Dinleme Anlama Fonetik', ECTS: 4.0 },
+            KB: { name: 'Kelime Bilgisi', ECTS: 4.0 },
+            O: { name: 'Okuma', ECTS: 5.0 },
+            SA: { name: 'Sözlü Anlatım', ECTS: 6.0 },
+            UDB: { name: 'Uygulamalı Dil Bilgisi', ECTS: 3.0 },
+            YA: { name: 'Yazılı Anlatım', ECTS: 5.0 },
         };
         
         function HTMLInputParticle(key) {
             var result = '';
-
+            
             sub.forEach(function(element) {
                 result += `<div class="col"><input type="number" max="100" min="0" class="form-control" id="${key}-${element}" placeholder="${key}-${element}"></div>`;
                 
             });
-
+            
             return result;
         }
         
         function HTMLBoxParticle() {
             var result = ''
-
+            
             Object.keys(lessons).forEach(function(key) {
                 var inputResult = HTMLInputParticle(key);                
-                result += `<div class="row">${inputResult}</div>`;
+                result += `<div class="box"><hr><h6>${lessons[key].name}</h6><div class="row">${inputResult}</div></div>`;
             });
-
+            
             return result;
         }
-
+        
         document.getElementById('input').insertAdjacentHTML('afterbegin', HTMLBoxParticle());
         
         var calculator = new Calculator(lessons, effects);
@@ -95,7 +99,7 @@
                 })
                 
             });
-                        
+            
             alert(calculator.yearCalculator(exams)); 
         };
     </script>
