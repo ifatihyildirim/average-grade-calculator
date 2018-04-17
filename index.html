@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    
+    <style>
+        .row {
+            margin: 10px 0;
+        }
+    </style>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="./Calculator.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="input"></div>
+                <div class="row">
+                    <div class="col">
+                        <button id="calculate" type="button" class="btn btn-primary btn-lg btn-block">Calculate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+    <script>
+        
+        var sub = ['1', '2', '3', '4', 'f']
+        
+        var effects = {
+            1: 0.1,
+            2: 0.1,
+            3: 0.1,
+            4: 0.1,
+            f: 0.6,
+        };
+        
+        var lessons = {
+            DB: 6.0,
+            DAF: 4.0,
+            KB: 4.0,
+            O: 5.0,
+            SA: 6.0,
+            UDB: 3.0,
+            Ya: 5.0,
+        };
+        
+        function HTMLInputParticle(key) {
+            var result = '';
+
+            sub.forEach(function(element) {
+                result += `<div class="col"><input type="number" max="100" min="0" value="40" class="form-control" id="${key}-${element}" placeholder=""></div>`;
+                
+            });
+
+            return result;
+        }
+        
+        function HTMLBoxParticle() {
+            var result = ''
+
+            Object.keys(lessons).forEach(function(key) {
+                var inputResult = HTMLInputParticle(key);                
+                result += `<div class="row">${inputResult}</div>`;
+            });
+
+            return result;
+        }
+
+        document.getElementById('input').insertAdjacentHTML('afterbegin', HTMLBoxParticle());
+        
+        var calculator = new Calculator(lessons, effects);
+        
+        document.getElementById("calculate").onclick = function () {
+            var exams = {};
+            
+            Object.keys(lessons).forEach(function(key) {
+                
+                exams[key] = new Array;
+                
+                sub.forEach(function(element) {
+                    
+                    var index = element;
+                    var value = document.getElementById(`${key}-${element}`).value;
+                    
+                    exams[key].push({ index, value });
+                })
+                
+            });
+                        
+            alert(calculator.yearCalculator(exams)); 
+        };
+    </script>
+</body>
+</html>
